@@ -2,7 +2,7 @@
 
 # Key Pair
 resource "aws_key_pair" "my_key_pair" {
-  key_name   = "terra-automate-key-josh"
+  key_name   = "terra-automate-key-josh-new"
   public_key = file("terra-automate-key.pub")
 }
 
@@ -12,7 +12,7 @@ resource "aws_default_vpc" "default" {
 
 # Security Group
 resource "aws_security_group" "my_security_group" {
-  name        = "terra-security-group"
+  name        = "terra-security-group-new"
   vpc_id      = aws_default_vpc.default.id
   description = "Inbound and outbound rules for instance security group"
 }
@@ -53,7 +53,7 @@ resource "aws_vpc_security_group_egress_rule" "allow_all_traffic" {
 # EC2 Instances
 
 resource "aws_instance" "my_instance" {
-  count         = 3
+  count         = 1
   ami           = "ami-07a00cf47dbbc844c"
   instance_type = "t3.micro"
   key_name      = aws_key_pair.my_key_pair.key_name
@@ -75,7 +75,7 @@ resource "aws_instance" "my_instance" {
 # Instance State (Fixed for multiple instances)
 
 resource "aws_ec2_instance_state" "my_instance_state" {
-  count       = 3
+  count       = 1
   instance_id = aws_instance.my_instance[count.index].id
   state       = "running"
 }
