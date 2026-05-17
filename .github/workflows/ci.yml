@@ -25,7 +25,7 @@ jobs:
         uses: docker/build-push-action@v7
         with:
           context: ./backend
-          push: ${{ secrets.DEPLOY_ENABLED == 'true' }}
+          push: ${{ vars.DEPLOY_ENABLED == 'true' }}
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME != '' && format('{0}/skillpulse-backend:latest', secrets.DOCKERHUB_USERNAME) || 'skillpulse-backend:latest' }}
             ${{ secrets.DOCKERHUB_USERNAME != '' && format('{0}/skillpulse-backend:{1}', secrets.DOCKERHUB_USERNAME, github.sha) || format('skillpulse-backend:{0}', github.sha) }}
@@ -34,7 +34,7 @@ jobs:
         uses: docker/build-push-action@v7
         with:
           context: ./frontend
-          push: ${{ secrets.DEPLOY_ENABLED == 'true' }}
+          push: ${{ vars.DEPLOY_ENABLED == 'true' }}
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME != '' && format('{0}/skillpulse-frontend:latest', secrets.DOCKERHUB_USERNAME) || 'skillpulse-frontend:latest' }}
             ${{ secrets.DOCKERHUB_USERNAME != '' && format('{0}/skillpulse-frontend:{1}', secrets.DOCKERHUB_USERNAME, github.sha) || format('skillpulse-frontend:{0}', github.sha) }}
