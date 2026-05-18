@@ -10,18 +10,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Run OWASP Dependency Check
+      # 🔧 Install Java (Dependency-Check needs Java)
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      # 🔍 Run OWASP Dependency Check
+      - name: Run Dependency Check
         uses: dependency-check/Dependency-Check_Action@main
         with:
           project: "skillpulse"
           path: "."
           format: "HTML"
+          out: "reports"
 
+      # 📤 Upload Report
       - name: Upload Report
         uses: actions/upload-artifact@v4
         with:
-          name: dependency-check-report
+          name: dependency-report
           path: reports
