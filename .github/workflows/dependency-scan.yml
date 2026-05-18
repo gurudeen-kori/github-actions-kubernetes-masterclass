@@ -1,25 +1,27 @@
-# package - issues ya vulnerabilities (scan for dependencies)
-# pip-audit 
-name: Dependency scan
+name: Dependency Scan
 
 on:
-    workflow_call:
+  push:
+    branches: [main]
+  pull_request:
 
 jobs:
-    dependency-check:
-        runs-on: ubuntu-latest
-        steps:
-            - name: checkout code
-              uses: actions/checkout@v4
+  dependency-check:
+    runs-on: ubuntu-latest
 
-            - name: setup python 3.12
-              uses: actions/setup-python@v5
-              with:
-                python-version: "3.12"
- 
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-            - name: install  pip dependency audit
-              run: pip install pip-audit
+      - name: Run OWASP Dependency Check
+        uses: dependency-check/Dependency-Check_Action@main
+        with:
+          project: "skillpulse"
+          path: "."
+          format: "HTML"
 
-            - name: run pip-audit
-              run: pip-audit -r requirements.txt
+      - name: Upload Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-check-report
+          path: reports
