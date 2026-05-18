@@ -21,6 +21,7 @@ jobs:
               git clone ${{ github.server_url }}/${{ github.repository }}.git ~/github-actions-kubernetes-masterclass
             fi
             cd ~/github-actions-kubernetes-masterclass
+            cp ~/skillpulse/.env ~/github-actions-kubernetes-masterclass
             git pull origin main
             if [ ! -f .env ]; then
               echo "ERROR: ~/github-actions-kubernetes-masterclass/.env is missing. Create it once with DOCKERHUB_USERNAME and DB credentials."
