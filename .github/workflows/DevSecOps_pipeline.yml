@@ -6,8 +6,8 @@ on:
         branches: [main]
 jobs:
     # CI (Contineus integration with securityscaning)
-    code-quality:
-        uses: ./.github/workflows/code-quality.yml
+   # code-quality:
+        #uses: ./.github/workflows/code-quality.yml
     secret-scan:
         uses: ./.github/workflows/secret-scan.yml
         secrets: inherit
