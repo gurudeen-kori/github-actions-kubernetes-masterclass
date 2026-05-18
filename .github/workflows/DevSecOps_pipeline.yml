@@ -18,8 +18,8 @@ jobs:
     image-scan:
         uses: ./.github/workflows/image-scan.yml
         secrets:
-          DOCKER_USERNAME: ${{ vars.DOCKER_USER }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
     
     # build once the ssecurity scan is passed
     build:
@@ -35,7 +35,7 @@ jobs:
     # deploy to production server
     deploy:
         needs: trivy
-        uses: ./.github/workflows/deploy-to-server.yml
+        uses: ./.github/workflows/cd.yml
         secrets: inherit
           
          

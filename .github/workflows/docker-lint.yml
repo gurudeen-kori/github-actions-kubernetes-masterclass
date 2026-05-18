@@ -1,10 +1,7 @@
 name: Docker Lint
 
 on:
-  push:
-    paths:
-      - 'backend/Dockerfile'
-      - 'frontend/Dockerfile'
+  workflow_call:
   pull_request:
 
 jobs:

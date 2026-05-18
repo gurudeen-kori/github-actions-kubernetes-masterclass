@@ -1,9 +1,7 @@
 name: Dependency Scan
 
 on:
-  push:
-    branches: [main]
-  pull_request:
+  pworkflow_call:
 
 jobs:
   dependency-check:

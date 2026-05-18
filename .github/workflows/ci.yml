@@ -1,13 +1,7 @@
 name: CI
 
 on:
-  push:
-    branches: [main]
-    paths-ignore:
-      - 'k8s/**'
-      - 'docs/**'
-      - '**/*.md'
-
+  pworkflow_call:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
