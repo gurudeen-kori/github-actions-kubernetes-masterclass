@@ -17,7 +17,8 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - name: Set JAVA_HOME
+      
+      - name: Force JAVA_HOME for Dependency Check
         run: echo "JAVA_HOME=$JAVA_HOME" >> $GITHUB_ENV
 
       # 🔍 Run OWASP Dependency Check

@@ -77,5 +77,5 @@ resource "aws_instance" "my_instance" {
 resource "aws_ec2_instance_state" "my_instance_state" {
   count       = 1
   instance_id = aws_instance.my_instance[count.index].id
-  state       = "running"
+  state       = "stopped"
 }

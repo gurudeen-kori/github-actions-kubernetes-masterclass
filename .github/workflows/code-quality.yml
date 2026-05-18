@@ -17,11 +17,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # ❌ npm हटाया (क्योंकि package.json नहीं है)
+      
 
       - name: Check formatting (Prettier via npx)
         run: |
           npx prettier --check .
+      - name: Fix formatting with Prettier
+        run: npx prettier --write .
 
       - name: Lint JS (optional basic check)
         run: |
@@ -46,7 +48,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version: 1.22
+          go-version: '1.26'
 
       - name: Install dependencies
         run: go mod tidy
