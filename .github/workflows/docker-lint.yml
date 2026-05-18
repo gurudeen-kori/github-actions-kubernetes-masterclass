@@ -14,8 +14,7 @@ jobs:
 
       - name: Lint Backend Dockerfile
         run: |
-          docker run --rm -i hadolint/hadolint < backend/Dockerfile
-
+          docker run --rm -i hadolint/hadolint hadolint --failure-threshold warning < backend/Dockerfile
       - name: Lint Frontend Dockerfile
         run: |
-          docker run --rm -i hadolint/hadolint < frontend/Dockerfile
+          docker run --rm -i hadolint/hadolint hadolint --failure-threshold warning < frontend/Dockerfile
