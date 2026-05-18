@@ -67,15 +67,8 @@
     # ✅ Create .env file
     - name: Create .env file
       copy:
+        src: .env
         dest: "{{ app_dir }}/.env"
-        content: |
-          MYSQL_ROOT_PASSWORD=rootpassword123
-          DB_HOST=db
-          DB_PORT=3306
-          DB_USER=skillpulse
-          DB_PASSWORD=skillpulse123
-          DB_NAME=skillpulse
-          DOCKERHUB_USERNAME=your-docker-hub-username
         owner: ubuntu
         group: ubuntu
         mode: '0644'
