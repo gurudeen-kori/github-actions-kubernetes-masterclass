@@ -1,32 +1,59 @@
-# code quality workflow
-name: code quality
+name: Code Quality
 
 on:
-    workflow_call:
+  push:
+    branches: [main]
+  pull_request:
 
 jobs:
-    validate-code:
 
-      runs-on: ubuntu-latest
-      strategy:
-        fail-fast: false
-        matrix:
-          python-version: ["3.11", "3.12", "3.13"]
+  # ✅ Frontend (JavaScript)
+  frontend-lint:
+    runs-on: ubuntu-latest
 
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v4
+    defaults:
+      run:
+        working-directory: frontend
 
-        - name: Setup Python ${{ matrix.python-version }}
-          uses: actions/setup-python@v5
-          with:
-            python-version: ${{ matrix.python-version }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-        - name: Install dependencies
-          run: pip install -r requirements.txt
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
 
-        - name: Run linter
-          run: flake8 app.py
+      - name: Install dependencies
+        run: npm install
 
-        - name: run SAST 
-          run: bandit -r app.py
+      - name: Run ESLint
+        run: npx eslint .
+
+      - name: Run Prettier check
+        run: npx prettier --check .
+
+  # ✅ Backend (Go)
+  backend-lint:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: 1.22
+
+      - name: Install dependencies
+        run: go mod tidy
+
+      - name: Run Go Linter
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: latest
