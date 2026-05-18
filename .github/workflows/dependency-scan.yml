@@ -1,7 +1,7 @@
 name: Dependency Scan
 
 on:
-  pworkflow_call:
+  workflow_call:
 
 jobs:
   dependency-check:

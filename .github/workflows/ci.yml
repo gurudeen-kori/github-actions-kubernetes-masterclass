@@ -1,7 +1,7 @@
 name: CI
 
 on:
-  pworkflow_call:
+  workflow_call:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
