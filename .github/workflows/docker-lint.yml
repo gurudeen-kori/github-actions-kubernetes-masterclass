@@ -1,16 +1,24 @@
-#docker file scan workflow
-name: docker lint
+name: Docker Lint
 
 on:
-    workflow_call:
-jobs:
-    docker-lint:
-        runs-on: ubuntu-latest
-        steps:
-            - name: checkout code
-              uses: actions/checkout@v4
+  push:
+    paths:
+      - 'backend/Dockerfile'
+      - 'frontend/Dockerfile'
+  pull_request:
 
-            - name: validate docker file
-              uses: hadolint/hadolint-action@v3.1.0
-              with:
-                dockerfile: ./Dockerfile
+jobs:
+  docker-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Lint Backend Dockerfile
+        run: |
+          docker run --rm -i hadolint/hadolint < backend/Dockerfile
+
+      - name: Lint Frontend Dockerfile
+        run: |
+          docker run --rm -i hadolint/hadolint < frontend/Dockerfile
