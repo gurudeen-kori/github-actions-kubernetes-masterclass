@@ -33,10 +33,21 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y trivy
 
-      - name: Run Trivy scan
-        run: |
-          trivy image --severity CRITICAL --exit-code 1 ${{ secrets.DOCKER_USERNAME }}/github-action-app:latest
-      
+      - name: Scan Backend Image
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ secrets.DOCKERHUB_USERNAME }}/backend:latest
+          format: table
+          exit-code: 1
+          severity: CRITICAL,HIGH
+
+      - name: Scan Frontend Image
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest
+          format: table
+          exit-code: 1
+          severity: CRITICAL,HIGH
       - name: Logout from Docker Hub
         if: always()
         run: docker logout
