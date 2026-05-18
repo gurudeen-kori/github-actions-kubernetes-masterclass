@@ -3,7 +3,7 @@
 # Key Pair
 resource "aws_key_pair" "my_key_pair" {
   key_name   = "terra-automate-key-josh-new"
-  public_key = file("terra-automate-key.pub")
+  public_key = file(pathexpand("~/.ssh/terra-automate-key-josh-new.pub"))
 }
 
 # Default VPC
