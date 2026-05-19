@@ -19,14 +19,17 @@ jobs:
           java-version: '17'
       
 
-      # 🔍 Run OWASP Dependency Check
       - name: Run Dependency Check
-        uses: dependency-check/Dependency-Check_Action@main
-        with:
-          project: "skillpulse"
-          path: "."
-          format: "HTML"
-          out: "reports"
+        run: |
+          mkdir -p reports
+          docker run --rm \
+            -v $(pwd):/src \
+            -v $(pwd)/reports:/report \
+            owasp/dependency-check \
+            --project "skillpulse" \
+            --scan /src \
+            --format HTML \
+            --out /report
 
       # 📤 Upload Report
       - name: Upload Report
