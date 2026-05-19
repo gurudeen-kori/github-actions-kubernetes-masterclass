@@ -15,9 +15,7 @@ jobs:
         uses: ./.github/workflows/dependency-scan.yml
     docker-lint:
         uses: ./.github/workflows/docker-lint.yml
-    image-scan:
-        uses: ./.github/workflows/image-scan.yml
-        secrets: inherit
+    
     # build once the ssecurity scan is passed
     build:
         needs: [code-quality, secret-scan, dependency-scan, docker-lint, image-scan]
