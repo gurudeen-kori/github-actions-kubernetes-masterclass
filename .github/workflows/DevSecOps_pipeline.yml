@@ -1,38 +1,39 @@
 name: Devsecops End to End Pipeline
 
 on:
-    workflow_dispatch:
-    push:
-        branches: [main]
-jobs:
-    #CI (Contineus integration with securityscaning)
-    code-quality:
-        uses: ./.github/workflows/code-quality.yml
-    secret-scan:
-        uses: ./.github/workflows/secret-scan.yml
-        secrets: inherit
-    dependency-scan:
-        uses: ./.github/workflows/dependency-scan.yml
-    docker-lint:
-        uses: ./.github/workflows/docker-lint.yml
-    image-scan:
-        uses: ./.github/workflows/image-scan.yml
-        secrets: inherit
-    # build once the ssecurity scan is passed
-    build:
-        needs: [code-quality, secret-scan, dependency-scan, docker-lint, image-scan]
-        uses: ./.github/workflows/ci.yml
-        secrets: inherit
+  workflow_dispatch:
+  push:
+    branches: [main]
 
-    # image scan with trivy
-    trivy:
-        needs: build
-        uses: ./.github/workflows/image-scan.yml
-        secrets: inherit
-    # deploy to production server
-    deploy:
-        needs: trivy
-        uses: ./.github/workflows/cd.yml
-        secrets: inherit
-          
-         
+jobs:
+  # 🔹 CI Security Checks (fast fail)
+  code-quality:
+    uses: ./.github/workflows/code-quality.yml
+
+  secret-scan:
+    uses: ./.github/workflows/secret-scan.yml
+    secrets: inherit
+
+  dependency-scan:
+    uses: ./.github/workflows/dependency-scan.yml
+
+  docker-lint:
+    uses: ./.github/workflows/docker-lint.yml
+
+  # 🔹 Build only after code is clean
+  build:
+    needs: [code-quality, secret-scan, dependency-scan, docker-lint]
+    uses: ./.github/workflows/ci.yml
+    secrets: inherit
+
+  # 🔹 Image Scan (Trivy) AFTER build
+  trivy:
+    needs: build
+    uses: ./.github/workflows/image-scan.yml
+    secrets: inherit
+
+  # 🔹 Deploy only if everything passed
+  deploy:
+    needs: trivy
+    uses: ./.github/workflows/cd.yml
+    secrets: inherit
