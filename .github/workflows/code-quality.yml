@@ -27,9 +27,11 @@ jobs:
 
       - name: Commit changes
         run: |
+          git config --global user.email "gurudeenkori2003@gmail.com"
+          git config --global user.name "gurudeen-kori"
           git add . 
           git commit -m "Auto format with Prettier" || echo "No changes"
-          git push origin main
+          git push 
 
       - name: Lint JS (optional basic check)
         run: |
