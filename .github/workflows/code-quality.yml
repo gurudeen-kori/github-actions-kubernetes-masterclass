@@ -64,5 +64,4 @@ jobs:
       - name: Run Go Linter
         uses: golangci/golangci-lint-action@v6
         with:
-          version: latest
-          working-directory: backend
+          version: v1.64.8
