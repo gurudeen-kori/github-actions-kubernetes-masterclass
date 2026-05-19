@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run Trivy Vulnerability Scanner
-        uses: aquasecurity/trivy-action@0.36.0  # Uses a pinned, reliable version
+        uses: aquasecurity/trivy-action@v0.36.0  # Uses a pinned, reliable version
         with:
           scan-type: 'fs'
           scan-ref: '.'
