@@ -18,7 +18,7 @@ jobs:
     image-scan:
         uses: ./.github/workflows/image-scan.yml
         secrets:
-          DOCKER_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
+          DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
     
     # build once the ssecurity scan is passed
