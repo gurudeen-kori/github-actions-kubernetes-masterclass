@@ -30,6 +30,7 @@ jobs:
             --scan /src \
             --format HTML \
             --out /report
+            --noupdate
 
       # 📤 Upload Report
       - name: Upload Report
