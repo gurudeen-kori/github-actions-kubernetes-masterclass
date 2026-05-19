@@ -35,7 +35,7 @@ jobs:
           trivyignores: .trivyignore
 
       - name: Scan Frontend Image
-        uses: aquasecurity/trivy-action@v0.36.0 # Fixed the version prefix to prevent resolution errors
+        uses: aquasecurity/trivy-action@v0.36.0 # Fixed all version prefix to prevent resolution errors
         with:
           image-ref: ${{ secrets.DOCKER_USERNAME }}/skillpulse-frontend:latest
           format: 'table'
