@@ -45,10 +45,6 @@ jobs:
   backend-lint:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: backend
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -57,12 +53,15 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: '1.24'
+          cache: true
 
       - name: Install dependencies
         run: go mod tidy
+        working-directory: backend
 
       - name: Run Go Linter
         uses: golangci/golangci-lint-action@v6
         with:
           version: v1.64.8
-          args: --timeout 5m
+          working-directory: backend
+          args: --timeout=5m
